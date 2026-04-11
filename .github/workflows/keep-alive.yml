@@ -1,0 +1,17 @@
+name: Keep Alive Cron
+
+on:
+  schedule:
+    # Run every 10 minutes to keep Render app alive
+    - cron: '*/10 * * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping health endpoint
+        run: |
+          echo "Pinging health endpoint to keep app alive..."
+          curl -f https://your-app.onrender.com/api/health || exit 1
+          echo "Health check successful!"

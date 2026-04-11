@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: doorstep-repair-api
+    runtime: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: doorstep-db
+          property: connectionString
+    staticPublishPath: dist
+    routes:
+      - path: /api
+        destination: /api
+
+  - type: pserv
+    name: doorstep-db
+    ipAllowList: []
+    plan: starter
+    postgresMajorVersion: 15
