@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
+import { initializeCronJobs } from "./cron";
 import { createServer } from "http";
 
 const app = express();
@@ -100,6 +101,8 @@ app.use((req, res, next) => {
     },
     () => {
       log(`serving on port ${port}`);
+      // Initialize cron jobs after server starts
+      initializeCronJobs();
     },
   );
 })();
