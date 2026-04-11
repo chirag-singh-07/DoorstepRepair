@@ -3,7 +3,7 @@ services:
     name: doorstep-repair-api
     runtime: node
     plan: starter
-    buildCommand: npm install && npm run db:push && npm run build
+    buildCommand: rm -f yarn.lock && npm ci --include=dev && npm run db:push && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
