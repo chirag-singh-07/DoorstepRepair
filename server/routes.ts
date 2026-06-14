@@ -123,7 +123,13 @@ export async function registerRoutes(
 
     req.session.adminId = admin.id;
     req.session.adminUsername = admin.username;
-    res.json({ message: "Login successful", username: admin.username });
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+        return res.status(500).json({ message: "Failed to save session" });
+      }
+      res.json({ message: "Login successful", username: admin.username });
+    });
   });
 
   app.post("/api/admin/logout", (req, res) => {
