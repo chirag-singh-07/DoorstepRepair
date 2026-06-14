@@ -102,7 +102,7 @@ app.use((req, res, next) => {
     () => {
       log(`serving on port ${port}`);
       // Initialize cron jobs after server starts
-      initializeCronJobs();
+      // initializeCronJobs();
     },
   );
 })();
